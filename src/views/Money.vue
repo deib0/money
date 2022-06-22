@@ -1,10 +1,9 @@
 <template>
-    <div>Money</div>
+<Layout> Money</Layout>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default new Vue ({
-   name: 'Money'
-})
+export default {
+    name: "Money"
+}
 </script>

@@ -1,10 +1,9 @@
 <template>
-    <div>statistics</div>
+<Layout> Statistics</Layout>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
-    name:'Statistics'
-})
+export default {
+    name:'Statistics',
+}
 </script>
