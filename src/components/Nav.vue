@@ -1,16 +1,16 @@
 
 <template>
-        <div class="nav">
-          <router-link to="/labels">
-            labels<Icon :name="'labels'" />
+        <nav>
+          <router-link to="/labels" class="item" active-class="selected">
+            labels<Icon :name="'labels'"  />
             </router-link>|
-          <router-link to="/money">            
+          <router-link to="/money" class="item" active-class="selected">            
             money<Icon :name="'money'" />
             </router-link> |
-          <router-link to="/statistics">            
+          <router-link to="/statistics" class="item" active-class="selected">            
             statistics<Icon :name="'statistics'" />
             </router-link>
-    </div>
+    </nav>
 </template>
 
 <script lang="ts">
@@ -21,10 +21,26 @@ export default {
 import Icon from '@/components/Icons.vue'
 </script>
 <style lang="scss" scoped>
-.nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  border: 1px solid green;
-}
+  nav {
+    display: flex;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
+    flex-direction: row;
+    font-size: 12px;
+    > .item {
+      color:black;
+      padding: 2px 0;
+      width: 33.33333%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      .icon {
+        width: 32px;
+        height: 32px;
+      }
+    }
+    > .item.selected{
+      color: red;
+    }
+  }
 </style>
