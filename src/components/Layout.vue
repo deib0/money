@@ -8,7 +8,8 @@
 </template>
 <script lang="ts">
 export default {
-    name:'Layout'
+    name:'Layout',
+    props: ['classPrefix']
 }
 </script>
 <style lang="scss" scoped> 
