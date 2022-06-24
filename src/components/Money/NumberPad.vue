@@ -13,7 +13,7 @@
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button class="ok">OK</button>
+      <button class="ok" @click="ok">OK</button>
       <button class="zero" @click="inputContent">0</button>
       <button @click="inputContent">.</button>
     </div>
@@ -22,24 +22,25 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component,Prop} from "vue-property-decorator";
+import { Component,Prop, Watch} from "vue-property-decorator";
 @Component
   export default class NumberPad extends Vue {
-    output:string ='0';
+    @Prop() readonly value!:number
+    output:string =this.value.toString()
     inputContent(event:MouseEvent){
-      const button =(event.target as HTMLButtonElement)
-      const input:string=(button.textContent!)
-if(this.output.length===16){return}
-      if(this.output==='0'){
-        if('0123456789'.indexOf(input)>=0){
-          this.output=input;
-        }else{
-          this.output+=input;
-        }
-        return;
-      }
-      if(this.output.indexOf('.')>=0&&input==='.'){return;}
-      this.output+=input;
+    const button =(event.target as HTMLButtonElement)
+    const input:string=(button.textContent!)
+        if(this.output.length===16){return}
+              if(this.output==='0'){
+                if('0123456789'.indexOf(input)>=0){
+                  this.output=input;
+                }else{
+                  this.output+=input;
+                }
+                return;
+              }
+              if(this.output.indexOf('.')>=0&&input==='.'){return;}
+              this.output+=input;
     };
     remove(){
       if(this.output.length===1){
@@ -50,6 +51,10 @@ if(this.output.length===16){return}
     };
     clear(){
       this.output='0'
+    };
+    ok(){
+      this.$emit('update:value',parseInt(this.output))
+      this.$emit('saveRecord')
     }
   };
 </script>

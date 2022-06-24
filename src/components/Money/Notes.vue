@@ -9,10 +9,14 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component,Prop} from "vue-property-decorator";
+import { Component,Prop, Watch} from "vue-property-decorator";
 @Component
   export default class NumberPad extends Vue {
-    value:string=''
+    value:string='';
+    @Watch('value')
+    onValueChanged(newValue:string){
+      this.$emit('update:value',newValue)
+    }
 }
 </script>
 
