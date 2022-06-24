@@ -8,13 +8,8 @@
 </template>
 
 <script lang="ts">
-type Record={
-  tags:string[]
-  notes:string
-  type:string
-  amount:number
-}
-const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+import Model from '@/views/Model';
+const recordList = Model.fetch();
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Types from '@/components/Money/Types.vue';
   import Notes from '@/components/Money/Notes.vue';
@@ -24,13 +19,14 @@ import { Component,Watch } from 'vue-property-decorator';
 @Component({components:{Tags,NumberPad,Types,Notes}})
 export default class Money extends Vue {
   tags=['衣','食','住','行','电动'];
-  record:Record={
+  record:RecordItem={
     tags:[],
   notes:'',
   type:'-',
   amount:0,
+  date:new Date()
   };
-  recordList:Record[]=recordList
+  recordList=recordList
   onUpdateTags(tags:string[]){
     this.record.tags=tags
   };
@@ -38,12 +34,12 @@ export default class Money extends Vue {
 this.record.notes=notes
   };
   onSaveRecord(){
-      const record2: Record = JSON.parse(JSON.stringify(this.record));//  深拷贝
+      const record2: RecordItem = Model.copy(this.record);//  深拷贝
       this.recordList.push(record2);
   }
   @Watch('recordList')
       onRecordListChange() {
-      window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+        Model.set(this.recordList)
     }
 }
 </script>
