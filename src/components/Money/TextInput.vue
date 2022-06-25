@@ -1,8 +1,8 @@
 <template>
   <div>
     <label class="notes">
-      <span class="name">备注</span>
-      <input type="text" placeholder="在这里输入备注" v-model="value">
+      <span class="name">{{inputTitle}}</span>
+      <input type="text" :placeHolder="placeHolder" v-model="value">
     </label>
   </div>
 </template>
@@ -11,7 +11,9 @@
 import Vue from "vue";
 import { Component,Prop, Watch} from "vue-property-decorator";
 @Component
-  export default class NumberPad extends Vue {
+  export default class TextInput extends Vue {
+    @Prop() readonly inputTitle!:string
+    @Prop() readonly placeHolder!:string
     value:string='';
     @Watch('value')
     onValueChanged(newValue:string){

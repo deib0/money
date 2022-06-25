@@ -1,6 +1,7 @@
 <template>
     <div>
-        EditLabel
+         <Iconfont name="left"/>
+         <TextInput inputTitle="标签" placeHolder="请输入新的标签" />
     </div>
 </template>
 
@@ -8,7 +9,8 @@
 import tagListModel from "@/models/tagListModel";
 import Vue from "vue";
 import { Component } from 'vue-property-decorator'
-@Component
+import TextInput from '../components/Money/TextInput.vue'
+@Component({components:{TextInput}})
 export default class Labels extends Vue {
 created(){
     const id = this.$route.params.id
