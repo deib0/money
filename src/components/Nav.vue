@@ -2,23 +2,21 @@
 <template>
         <nav>
           <router-link to="/labels" class="item" active-class="selected">
-            labels<Icon :name="'labels'"  />
+            labels<Iconfont :name="'labels'"  />
             </router-link>|
           <router-link to="/money" class="item" active-class="selected">            
-            money<Icon :name="'money'" />
+            money<Iconfont :name="'money'" />
             </router-link> |
           <router-link to="/statistics" class="item" active-class="selected">            
-            statistics<Icon :name="'statistics'" />
+            statistics<Iconfont :name="'statistics'" />
             </router-link>
     </nav>
 </template>
 
 <script lang="ts">
 export default {
-    name:'Nav',
-    components:{Icon}
+    name:'Nav'
 }
-import Icon from '@/components/Icons.vue'
 </script>
 <style lang="scss" scoped>
   nav {

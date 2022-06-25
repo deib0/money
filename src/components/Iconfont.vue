@@ -8,7 +8,7 @@
 let importAll = (requireContext: __WebpackModuleApi.RequireContext) => requireContext.keys().forEach(requireContext);
   try {importAll(require.context('../assets/icons', true, /\.svg$/));} catch (error) {console.log(error);}
 export default {
-    name:'Icon',
+    name:'Iconfont',
     props:['name']
 }
 </script>
