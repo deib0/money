@@ -1,7 +1,11 @@
 const itemKey ='tagList'
+type Tag ={
+    id:string,
+    tag:string
+}
 type TagListModel={
-    data:string[],
-    fetch():string[],
+    data:Tag[],
+    fetch():Tag[],
     create(value:string):'success'|'duplicated',//  联合类型
     save():void
 
@@ -13,10 +17,11 @@ const tagListModel:TagListModel ={
         return this.data
     },
     create(value){
-            if(this.data.indexOf(value)>=0){
+        let names =this.data.map(item=>item.tag)
+            if(names.indexOf(value)>=0){
                 return 'duplicated'
             }else{
-                this.data.push(value)
+                this.data.push({'id':value,'tag':value})
                 this.save()
                 return 'success'
             }

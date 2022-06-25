@@ -2,7 +2,7 @@
 <Layout> 
    <ol class="tags">
       <li class="tag" v-for="u in tagList" :key="u">
-         <span>{{u}}</span>
+         <span>{{u.tag}}</span>
          <Iconfont name="right"/>
       </li>
    </ol>
