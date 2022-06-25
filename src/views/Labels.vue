@@ -1,13 +1,13 @@
 <template>
 <Layout> 
    <ol class="tags">
-      <li class="tag">
-         <span>衣</span>
+      <li class="tag" v-for="u in tagList" :key="u">
+         <span>{{u}}</span>
          <Iconfont name="right"/>
       </li>
    </ol>
        <div class="createTag-wrapper">
-      <Button class="createTag">
+      <Button class="createTag" @click="createTag">
         新建标签
       </Button>
     </div>
@@ -15,8 +15,20 @@
 </template>
 
 <script lang="ts">
-export default {
-   name: 'Labels'
+import Vue from "vue";
+import tagListModel from '@/models/tagListModel';
+import { Component } from 'vue-property-decorator'
+@Component
+export default class Labels extends Vue {
+tagList=tagListModel.fetch()
+createTag(){
+  const newTag =prompt('请你输入新的标签吧')
+  if(newTag){
+  const message= tagListModel.create(newTag)
+  if(message==='duplicated'){alert('已经有这个标签了，换一个把')}
+  else if(message === 'success'){alert('创建成功~')}
+  }
+}
 }
 </script>
 

@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import Model from '@/views/Model';
-const recordList = Model.fetch();
+import recordListModel from '@/models/recordListModel';
+const recordList = recordListModel.fetch();
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Types from '@/components/Money/Types.vue';
   import Notes from '@/components/Money/Notes.vue';
@@ -34,12 +34,12 @@ export default class Money extends Vue {
 this.record.notes=notes
   };
   onSaveRecord(){
-      const record2: RecordItem = Model.copy(this.record);//  深拷贝
+      const record2: RecordItem = recordListModel.copy(this.record);//  深拷贝
       this.recordList.push(record2);
   }
   @Watch('recordList')
       onRecordListChange() {
-        Model.set(this.recordList)
+        recordListModel.set(this.recordList)
     }
 }
 </script>
