@@ -1,7 +1,7 @@
 const itemKey ='tagList'
 type Tag ={
-    id:string,
-    tag:string
+    tagId:string,
+    tagName:string
 }
 type TagListModel={
     data:Tag[],
@@ -17,11 +17,12 @@ const tagListModel:TagListModel ={
         return this.data
     },
     create(value){
-        let names =this.data.map(item=>item.tag)
+        let names =this.data.map(item=>item.tagName)
             if(names.indexOf(value)>=0){
                 return 'duplicated'
             }else{
-                this.data.push({'id':value,'tag':value})
+                let obj ={tagId:value,tagName:value}
+                this.data.push(obj)
                 this.save()
                 return 'success'
             }
