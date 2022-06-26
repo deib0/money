@@ -4,7 +4,11 @@
     <Types :type.sync="record.type"/>
     <TextInput v-on:update:value="record.notes=$event" :value="record.notes"  
     inputTitle="备注" placeHolder="请输入备注" />
-    <Tags :dataSource.sync="tags" v-on:update:value="onUpdateTags" />
+    <Tags 
+    :tags="tags" v-on:update:newTag="onCreateTag"
+    v-on:update:selectedTag="record.selectedTags=$event"
+
+    />
 </Layout>
 </template>
 
@@ -17,20 +21,24 @@ const recordList = recordListModel.fetch();
   import Tags from '@/components/Money/Tags.vue';
 import Vue from 'vue';
 import { Component,Watch } from 'vue-property-decorator';
+import tagListModel from '@/models/tagListModel';
 @Component({components:{Tags,NumberPad,Types,TextInput}})
 export default class Money extends Vue {
-  tags=['衣','食','住','行','电动'];
+  tags=tagListModel.fetch()
   record:RecordItem={
-    tags:[],
+  selectedTags:[],
   notes:'',
   type:'-',
   amount:0,
   date:new Date()
   };
   recordList=recordList
-  onUpdateTags(tags:string[]){
-    this.record.tags=tags
-  };
+  onCreateTag($event:string){
+    let message= tagListModel.create($event)
+    if(message==='duplicated'){
+      alert('换一个名字吧')
+    }
+  }
   onSaveRecord(){
       const record2: RecordItem = recordListModel.copy(this.record);//  深拷贝
       this.recordList.push(record2);
