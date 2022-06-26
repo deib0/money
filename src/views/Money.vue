@@ -2,7 +2,8 @@
 <Layout class-prefix="layout">
     <NumberPad :value.sync="record.amount" v-on:saveRecord="onSaveRecord" />
     <Types :type.sync="record.type"/>
-    <TextInput v-on:update:value="onUpdateNotes" inputTitle="备注" placeHolder="请输入备注" />
+    <TextInput v-on:update:value="record.notes=$event" :value="record.notes"  
+    inputTitle="备注" placeHolder="请输入备注" />
     <Tags :dataSource.sync="tags" v-on:update:value="onUpdateTags" />
 </Layout>
 </template>
@@ -29,9 +30,6 @@ export default class Money extends Vue {
   recordList=recordList
   onUpdateTags(tags:string[]){
     this.record.tags=tags
-  };
-  onUpdateNotes(notes:string){
-this.record.notes=notes
   };
   onSaveRecord(){
       const record2: RecordItem = recordListModel.copy(this.record);//  深拷贝

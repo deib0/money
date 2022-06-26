@@ -7,7 +7,7 @@
     </div>
     <div class="input-wrapper">
       <TextInput 
-    inputTitle="标签名" placeHolder="请输入标签名" class="input" />
+    inputTitle="标签名" placeHolder="请输入标签名"/>
     </div>
     <div class="button-wrapper">
       <Button>删除标签</Button>
