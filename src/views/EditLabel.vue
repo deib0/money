@@ -1,9 +1,18 @@
 <template>
-    <div>
-         <Iconfont name="left"/>
-         <TextInput inputTitle="标签" placeHolder="请输入新的标签" />
-         <Button>删除标签</Button>
+<Layout>
+    <div class="navBar">
+      <Iconfont class="leftIcon" name="left"/>
+      <span class="title">编辑标签</span>
+      <span class="rightIcon"></span>
     </div>
+    <div class="input-wrapper">
+      <TextInput 
+    inputTitle="标签名" placeHolder="请输入标签名" class="input" />
+    </div>
+    <div class="button-wrapper">
+      <Button>删除标签</Button>
+    </div>
+</Layout>
 </template>
 
 <script lang="ts">
@@ -27,5 +36,30 @@ created(){
 }
 </script>
 <style lang="scss" scoped>
-
+ .navBar {
+    text-align: center;
+    font-size: 16px;
+    padding: 12px 16px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    > .leftIcon {
+      width: 24px;
+      height: 24px;
+    }
+    > .rightIcon {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  .input-wrapper{
+    margin-top: 8px;
+    background-color: #ffffff;
+  }
+  .button-wrapper{
+    text-align: center;
+    padding: 16px;
+    margin-top: 44-16px;
+  }
 </style>
