@@ -1,3 +1,4 @@
+import createId from '../lib/createId';
 const itemKey ='tagList'
 type Tag ={
     tagId:string,
@@ -19,11 +20,12 @@ const tagListModel:TagListModel ={
         return this.data
     },
     create(value){
+        let id= createId().toString()
         let names =this.data.map(item=>item.tagName)
             if(names.indexOf(value)>=0){
                 return 'duplicated'
             }else{
-                let obj ={tagId:value,tagName:value}
+                let obj ={tagId:id,tagName:value}
                 this.data.push(obj)
                 this.save()
                 return 'success'

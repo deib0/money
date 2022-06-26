@@ -41,7 +41,7 @@ created(){
     };
     removeTag(){
       let message= tagListModel.remove(this.tag.tagId)
-    if(message==='success'){alert('删除成功')}
+    if(message==='success'){alert('删除成功');this.$router.back()}
     };
     getBack(){
       this.$router.back()
