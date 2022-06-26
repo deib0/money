@@ -8,7 +8,8 @@ type TagListModel={
     fetch():Tag[],
     create(value:string):'success'|'duplicated',//  联合类型
     save():void,
-    update(tagId:string,tagName:string):void
+    update(tagId:string,tagName:string):void,
+    remove(tagId:string):string
 
 }
 const tagListModel:TagListModel ={
@@ -35,11 +36,17 @@ const tagListModel:TagListModel ={
     update(tagId,tagName){
         let tagIds =this.data.map(item=>item.tagId)
         let index = tagIds.indexOf(tagId)
-        console.log(this.data[index]);
         if(index>=0){
             this.data[index].tagName=tagName
         }
         this.save()
+    },
+    remove(tagId){
+        let tagIds =this.data.map(item=>item.tagId)
+        let index = tagIds.indexOf(tagId)
+        this.data.splice(index,1)
+        this.save()
+        return 'success'
     }
 }
 export default tagListModel

@@ -1,7 +1,7 @@
 <template>
 <Layout>
     <div class="navBar">
-      <Iconfont class="leftIcon" name="left"/>
+      <Iconfont class="leftIcon" name="left" @click="getBack" />
       <span class="title">编辑标签</span>
       <span class="rightIcon"></span>
     </div>
@@ -11,7 +11,7 @@
     :value="tag.tagName" v-on:update:value="updateTagName"  />
     </div>
     <div class="button-wrapper">
-      <Button>删除标签</Button>
+      <Button @click="removeTag">删除标签</Button>
     </div>
 </Layout>
 </template>
@@ -38,6 +38,13 @@ created(){
     };
     updateTagName($event:string){
       tagListModel.update(this.tag.tagId,$event)
+    };
+    removeTag(){
+      let message= tagListModel.remove(this.tag.tagId)
+    if(message==='success'){alert('删除成功')}
+    };
+    getBack(){
+      this.$router.back()
     }
 }
 </script>
