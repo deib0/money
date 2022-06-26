@@ -7,7 +7,8 @@
     </div>
     <div class="input-wrapper">
       <TextInput 
-    inputTitle="标签名" placeHolder="请输入标签名"/>
+    inputTitle="标签名" placeHolder="请输入标签名" 
+    :value="tag.tagName" v-on:update:value="updateTagName"  />
     </div>
     <div class="button-wrapper">
       <Button>删除标签</Button>
@@ -23,15 +24,20 @@ import TextInput from '../components/Money/TextInput.vue'
 import Button from '../components/Button.vue'
 @Component({components:{TextInput,Button}})
 export default class Labels extends Vue {
+    tag:{tagName:string,tagId:string}={tagName:'',tagId:''};
 created(){
-    const id = this.$route.params.id
+    const urlId = this.$route.params.id
     tagListModel.fetch()
     const tags =tagListModel.data
-    const tag = tags.filter(item=>item.tagId===id)[0]
-    if(tag){console.log(tag);
+    const tag = tags.filter(item=>item.tagId===urlId)[0]
+    if(tag){
+      this.tag=tag
     }else{
         this.$router.replace('/404')
     }
+    };
+    updateTagName($event:string){
+      tagListModel.update(this.tag.tagId,$event)
     }
 }
 </script>
