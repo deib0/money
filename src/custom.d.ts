@@ -16,5 +16,7 @@ type TagListModel={
     save():void,
     update(tagId:string,tagName:string):void,
     remove(tagId:string):string
-
+}
+interface Window {
+  tagList : tag[]
 }

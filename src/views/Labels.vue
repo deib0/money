@@ -20,7 +20,7 @@ import { Component } from 'vue-property-decorator'
 import Button from '../components/Button.vue'
 @Component({components:{Button}})
 export default class Labels extends Vue {
-tagList=tagListModel.fetch()
+tagList=window.tagList
 createTag(){
   const newTag =prompt('请你输入新的标签吧')
   if(newTag){

@@ -24,7 +24,7 @@ import { Component,Watch } from 'vue-property-decorator';
 import tagListModel from '@/models/tagListModel';
 @Component({components:{Tags,NumberPad,Types,TextInput}})
 export default class Money extends Vue {
-  tags=tagListModel.fetch()
+  tags=window.tagList    
   record:RecordItem={
   selectedTags:[],
   notes:'',
