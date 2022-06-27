@@ -1,29 +1,10 @@
-import recordListModel from "@/models/recordListModel";
-import tagListModel from "@/models/tagListModel";
+import recordStore from "./recordStore"
+import tagStore from "./tagStore"
 
 const store={
-    tagList:tagListModel.fetch(),
-    createTag(newTag:string){
-        if(newTag){
-            const message= tagListModel.create(newTag)
-            if(message==='duplicated'){alert('已经有这个标签了，换一个把')}
-            else if(message === 'success'){alert('创建成功~')}
-            }
-    },
-    removeTag(tagId:string){
-        let message= tagListModel.remove(tagId)
-        if(message==='success'){alert('删除成功')
-        }else{
-          alert('没有该标签')
-        } 
-    },
-    updateTag(tagId:string,tagName:string){
-        tagListModel.update(tagId,tagName)
-    },
-    recordList:recordListModel.fetch(),
-    saveRecord(record:RecordItem){
-        recordListModel.saveRecord(record)
-    }
+...tagStore,
+...recordStore
+
 }
 
 export default store
