@@ -18,5 +18,7 @@ type TagListModel={
     remove(tagId:string):string
 }
 interface Window {
-  tagList : tag[]
+  store:{
+    tagList : tag[]
+  }
 }

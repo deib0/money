@@ -21,10 +21,10 @@ const recordList = recordListModel.fetch();
   import Tags from '@/components/Money/Tags.vue';
 import Vue from 'vue';
 import { Component,Watch } from 'vue-property-decorator';
-import tagListModel from '@/models/tagListModel';
+import store from '@/store/index2';
 @Component({components:{Tags,NumberPad,Types,TextInput}})
 export default class Money extends Vue {
-  tags=window.tagList    
+  tags=store.tagList  
   record:RecordItem={
   selectedTags:[],
   notes:'',
@@ -34,10 +34,7 @@ export default class Money extends Vue {
   };
   recordList=recordList
   onCreateTag($event:string){
-    let message= tagListModel.create($event)
-    if(message==='duplicated'){
-      alert('换一个名字吧')
-    }
+    store.createTag($event)
   }
   onSaveRecord(){
       const record2: RecordItem = recordListModel.copy(this.record);//  深拷贝

@@ -17,17 +17,17 @@
 </template>
 
 <script lang="ts">
-import tagListModel from "@/models/tagListModel";
 import Vue from "vue";
 import { Component } from 'vue-property-decorator'
 import TextInput from '../components/Money/TextInput.vue'
 import Button from '../components/Button.vue'
+import store from "@/store/index2";
 @Component({components:{TextInput,Button}})
 export default class Labels extends Vue {
     tag:{tagName:string,tagId:string}={tagName:'',tagId:''};
 created(){
     const urlId = this.$route.params.id
-    const tags =tagListModel.data
+    const tags =store.tagList
     const tag = tags.filter(item=>item.tagId===urlId)[0]
     if(tag){
       this.tag=tag
@@ -36,12 +36,12 @@ created(){
     }
     };
     updateTagName($event:string){
-      tagListModel.update(this.tag.tagId,$event)
+      store.updateTag(this.tag.tagId,$event)
     };
     removeTag(){
-      let message= tagListModel.remove(this.tag.tagId)
-    if(message==='success'){alert('删除成功');this.$router.back()}
-    };    
+    store.removeTag(this.tag.tagId)
+     this.$router.back()
+    };
     getBack(){
       this.$router.back()
     }

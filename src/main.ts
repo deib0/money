@@ -12,7 +12,6 @@ Vue.config.productionTip = false
 Vue.component('Nav',Nav)
 Vue.component('Layout',Layout)
 Vue.component('Iconfont',Iconfont)
-window.tagList=tagListModel.fetch()
 new Vue({
   router,
   store,
