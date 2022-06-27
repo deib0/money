@@ -14,7 +14,6 @@
 
 <script lang="ts">
 import recordListModel from '@/models/recordListModel';
-const recordList = recordListModel.fetch();
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Types from '@/components/Money/Types.vue';
   import TextInput from '@/components/Money/TextInput.vue';
@@ -32,18 +31,13 @@ export default class Money extends Vue {
   amount:0,
   date:new Date()
   };
-  recordList=recordList
+  recordList=recordListModel.fetch()
   onCreateTag($event:string){
     store.createTag($event)
   }
   onSaveRecord(){
-      const record2: RecordItem = recordListModel.copy(this.record);//  深拷贝
-      this.recordList.push(record2);
+    recordListModel.saveRecord(this.record)
   }
-  @Watch('recordList')
-      onRecordListChange() {
-        recordListModel.set(this.recordList)
-    }
 }
 </script>
 

@@ -1,15 +1,14 @@
 const itemKey ='recordList'
-const recordListModel ={
+const recordListModel:RecordListModel ={
+    data:[],
     fetch(){
-        return JSON.parse(localStorage.getItem(itemKey)||'[]') as RecordItem[]
+        this.data=JSON.parse(localStorage.getItem(itemKey)||'[]')
+        return this.data
     },
-    copy(value:RecordItem[]|RecordItem){
-        return JSON.parse(JSON.stringify(value)) as RecordItem
-    }
-    ,
-    set(value:RecordItem[]){
-        const string = JSON.stringify(value)
-        localStorage.setItem(itemKey,string)
+    saveRecord(value){
+        let value2 = JSON.parse(JSON.stringify(value))
+        this.data.push(value2)
+        localStorage.setItem(itemKey,JSON.stringify(this.data))
     }
 }
 export default recordListModel

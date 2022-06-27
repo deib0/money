@@ -5,6 +5,11 @@ type RecordItem={
     amount:number
     date:Date
   }
+type RecordListModel={
+  data:RecordItem[]
+  fetch():RecordItem[]
+  saveRecord(value:RecordItem):void
+}
   type Tag ={
     tagId:string,
     tagName:string
