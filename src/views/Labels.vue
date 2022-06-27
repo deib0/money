@@ -20,7 +20,7 @@ import Button from '../components/Button.vue'
 import store from "@/store/index2";
 @Component({components:{Button}})
 export default class Labels extends Vue {
-tagList=store.tagList
+tagList=store.fetchTagList()
 createTag(){
     const newTag =prompt('请你输入新的标签吧')||''
     store.createTag(newTag)

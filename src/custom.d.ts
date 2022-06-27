@@ -5,25 +5,22 @@ type RecordItem={
     amount:number
     date:Date
   }
-type RecordListModel={
-  data:RecordItem[]
-  fetch():RecordItem[]
-  saveRecord(value:RecordItem):void
-}
+  type RecordStore={
+    data:RecordItem[],
+    fetchRecordList():RecordItem[],
+    saveRecord(record:RecordItem):void
+  }
   type Tag ={
     tagId:string,
     tagName:string
 }
-type TagListModel={
-    data:Tag[],
-    fetch():Tag[],
-    create(value:string):'success'|'duplicated',//  联合类型
-    save():void,
-    update(tagId:string,tagName:string):void,
-    remove(tagId:string):string
+type TagStore={
+  tagList:Tag[],
+  fetchTagList():Tag[],
+  createTag(newTag:string):void,
+  saveTagList():void,
+  updateTag(tagId:string,tagName:string):void
+  removeTag(tagId:string):void
 }
 interface Window {
-  store:{
-    tagList : tag[]
-  }
 }

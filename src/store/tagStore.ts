@@ -1,22 +1,42 @@
-import tagListModel from "@/models/tagListModel"
-const tagStore ={
-    tagList:tagListModel.fetch(),
-    createTag(newTag:string){
+import createId from "@/lib/createId"
+const itemKey ='tagList'
+const tagStore:TagStore ={
+    tagList:[],
+    fetchTagList(){
+        this.tagList=JSON.parse(localStorage.getItem(itemKey)||'[]') 
+        return this.tagList       
+    },
+    createTag(newTag){
         if(newTag){
-            const message= tagListModel.create(newTag)
-            if(message==='duplicated'){alert('已经有这个标签了，换一个把')}
-            else if(message === 'success'){alert('创建成功~')}
+            let names =this.tagList.map(item=>item.tagName)
+                if(names.indexOf(newTag)>=0){
+                    alert('换一个名字把')
+                }else{
+                    let id= createId().toString()
+                    let obj ={tagId:id,tagName:newTag}
+                    this.tagList.push(obj)
+                    this.saveTagList()
+                    alert('创建成功')
+                }
             }
     },
-    removeTag(tagId:string){
-        let message= tagListModel.remove(tagId)
-        if(message==='success'){alert('删除成功')
-        }else{
-          alert('没有该标签')
-        } 
+    saveTagList(){
+        localStorage.setItem(itemKey,JSON.stringify(this.tagList))
     },
-    updateTag(tagId:string,tagName:string){
-        tagListModel.update(tagId,tagName)
+    updateTag(tagId,tagName){
+        let tagIds =this.tagList.map(item=>item.tagId)
+        let index = tagIds.indexOf(tagId)
+        if(index>=0){
+            this.tagList[index].tagName=tagName
+        }
+        this.saveTagList()
+    },
+    removeTag(tagId){
+        let tagIds =this.tagList.map(item=>item.tagId)
+        let index = tagIds.indexOf(tagId)
+        this.tagList.splice(index,1)
+        this.saveTagList()
+        alert('删除成功')
     }
 }
 export default tagStore

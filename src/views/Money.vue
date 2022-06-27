@@ -18,11 +18,11 @@
   import TextInput from '@/components/Money/TextInput.vue';
   import Tags from '@/components/Money/Tags.vue';
 import Vue from 'vue';
-import { Component,Watch } from 'vue-property-decorator';
+import { Component} from 'vue-property-decorator';
 import store from '@/store/index2';
 @Component({components:{Tags,NumberPad,Types,TextInput}})
 export default class Money extends Vue {
-  tags=store.tagList  
+  tags=store.fetchTagList()
   record:RecordItem={
   selectedTags:[],
   notes:'',
@@ -30,7 +30,7 @@ export default class Money extends Vue {
   amount:0,
   date:new Date()
   };
-  recordList=store.recordList
+  recordList=store.fetchRecordList()
   onCreateTag($event:string){
     store.createTag($event)
   }

@@ -1,8 +1,14 @@
-import recordListModel from "@/models/recordListModel"
-const recordStore ={
-    recordList:recordListModel.fetch(),
+const itemKey ='recordList'
+const recordStore:RecordStore ={
+    data:[],
+    fetchRecordList(){
+        this.data=JSON.parse(localStorage.getItem(itemKey)||'[]')
+        return this.data
+    },
     saveRecord(record:RecordItem){
-        recordListModel.saveRecord(record)
+        let record2 = JSON.parse(JSON.stringify(record))
+        this.data.push(record2)
+        localStorage.setItem(itemKey,JSON.stringify(this.data))
     }
 }
 export default recordStore
