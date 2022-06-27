@@ -19,6 +19,10 @@ const store={
     },
     updateTag(tagId:string,tagName:string){
         tagListModel.update(tagId,tagName)
+    },
+    recordList:recordListModel.fetch(),
+    saveRecord(record:RecordItem){
+        recordListModel.saveRecord(record)
     }
 }
 

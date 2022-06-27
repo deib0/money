@@ -13,7 +13,6 @@
 </template>
 
 <script lang="ts">
-import recordListModel from '@/models/recordListModel';
   import NumberPad from '@/components/Money/NumberPad.vue';
   import Types from '@/components/Money/Types.vue';
   import TextInput from '@/components/Money/TextInput.vue';
@@ -31,12 +30,12 @@ export default class Money extends Vue {
   amount:0,
   date:new Date()
   };
-  recordList=recordListModel.fetch()
+  recordList=store.recordList
   onCreateTag($event:string){
     store.createTag($event)
   }
   onSaveRecord(){
-    recordListModel.saveRecord(this.record)
+    store.saveRecord(this.record)
   }
 }
 </script>
