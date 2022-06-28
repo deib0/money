@@ -1,25 +1,25 @@
 <template>
 <Layout class-prefix="layout">
     <NumberPad :value.sync="record.amount" v-on:saveRecord="onSaveRecord" />
-    <Types :type.sync="record.type"/>
+    <Tabs class="money"
+    :types="types" :selectedType.sync="record.type" />
     <TextInput v-on:update:value="record.notes=$event" :value="record.notes"  
     inputTitle="备注" placeHolder="请输入备注" />
     <Tags 
     :tags="tags" v-on:update:newTag="onCreateTag"
     v-on:update:selectedTag="record.selectedTags=$event"
-
     />
 </Layout>
 </template>
 
 <script lang="ts">
   import NumberPad from '@/components/Money/NumberPad.vue';
-  import Types from '@/components/Money/Types.vue';
   import TextInput from '@/components/Money/TextInput.vue';
   import Tags from '@/components/Money/Tags.vue';
+  import Tabs from '@/components/Tabs.vue';
 import Vue from 'vue';
 import { Component} from 'vue-property-decorator';
-@Component({components:{Tags,NumberPad,Types,TextInput},
+@Component({components:{Tags,NumberPad,Tabs,TextInput},
 })
 export default class Money extends Vue {
   get recordList(){
@@ -28,10 +28,11 @@ export default class Money extends Vue {
   get tags(){
     return this.$store.state.tagList
   }
+  types=['支出','收入']
   record:RecordItem={
   selectedTags:[],
   notes:'',
-  type:'-',
+  type:'支出',
   amount:0,
   date:new Date()
   };

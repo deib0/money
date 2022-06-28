@@ -1,12 +1,10 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="type === '-' && 'selected'"
-          @click="selectType('-')">支出
-      </li>
-      <li :class="type === '+' && 'selected'"
-          @click="selectType('+')">收入
-      </li>
+      <li v-for="u in types" :key="u" 
+      :class="u===selectedType?'selected':''"
+      @click="changeType"
+      >{{u}}</li>
     </ul>
   </div>
 </template>
@@ -15,14 +13,13 @@
   import Vue from 'vue';
   import {Component, Prop} from 'vue-property-decorator';
   @Component
-  export default class Types extends Vue {
-   @Prop()type:string|undefined
-    selectType(type: string) {
-      if (type !== '-' && type !== '+') {
-        throw new Error('type is unknown');
-      }
-      this.$emit('update:type',type)
-    }
+  export default class Tabs extends Vue {
+   @Prop()selectedType:string|undefined
+   @Prop()types:[]|undefined
+   changeType($event:MouseEvent){
+    let el=$event.target as HTMLElement
+    this.$emit('update:selectedType',el.textContent)
+   }
   }
 </script>
 
