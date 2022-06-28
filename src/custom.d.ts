@@ -6,7 +6,7 @@ type RecordItem={
     date:Date
   }
   type RecordStore={
-    data:RecordItem[],
+    recordList:RecordItem[],
     fetchRecordList():RecordItem[],
     saveRecord(record:RecordItem):void
   }

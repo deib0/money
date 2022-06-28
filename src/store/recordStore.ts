@@ -1,14 +1,14 @@
 const itemKey ='recordList'
 const recordStore:RecordStore ={
-    data:[],
+    recordList:[],
     fetchRecordList(){
-        this.data=JSON.parse(localStorage.getItem(itemKey)||'[]')
-        return this.data
+        this.recordList=JSON.parse(localStorage.getItem(itemKey)||'[]')
+        return this.recordList
     },
     saveRecord(record:RecordItem){
         let record2 = JSON.parse(JSON.stringify(record))
-        this.data.push(record2)
-        localStorage.setItem(itemKey,JSON.stringify(this.data))
+        this.recordList.push(record2)
+        localStorage.setItem(itemKey,JSON.stringify(this.recordList))
     }
 }
 export default recordStore

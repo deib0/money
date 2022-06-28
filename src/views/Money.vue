@@ -20,7 +20,13 @@
 import Vue from 'vue';
 import { Component} from 'vue-property-decorator';
 import store from '@/store/index2';
-@Component({components:{Tags,NumberPad,Types,TextInput}})
+@Component({components:{Tags,NumberPad,Types,TextInput},
+computed:{
+  recordList(){
+    return this.$store.state.recordList
+  }
+}
+})
 export default class Money extends Vue {
   tags=store.fetchTagList()
   record:RecordItem={
@@ -30,12 +36,14 @@ export default class Money extends Vue {
   amount:0,
   date:new Date()
   };
-  recordList=store.fetchRecordList()
   onCreateTag($event:string){
     store.createTag($event)
+  };
+  created(){
+        this.$store.commit('fetchRecordList')
   }
   onSaveRecord(){
-    store.saveRecord(this.record)
+    this.$store.commit('saveRecord',this.record)
   }
 }
 </script>
