@@ -19,7 +19,6 @@ const store= new Vuex.Store({
       },
       fetchRecordList(state){
         state.recordList=JSON.parse(localStorage.getItem('recordList')||'[]')
-        return this.recordList
     },
       saveRecord(state,record:RecordItem){
         let record2 = JSON.parse(JSON.stringify(record))as RecordItem
@@ -27,8 +26,7 @@ const store= new Vuex.Store({
         localStorage.setItem('recordList',JSON.stringify(state.recordList))
     },
     fetchTagList(state){
-      state.tagList=JSON.parse(localStorage.getItem('tagList')||'[]') 
-      return state.tagList       
+      state.tagList=JSON.parse(localStorage.getItem('tagList')||'[]')  
     },
     createTag(state,newTag){
       if(newTag){
