@@ -17,13 +17,14 @@
 import Vue from "vue";
 import { Component } from 'vue-property-decorator'
 import Button from '../components/Button.vue'
-import store from "@/store/index2";
 @Component({components:{Button}})
 export default class Labels extends Vue {
-tagList=store.fetchTagList()
+get tagList(){
+  return this.$store.state.tagList
+}
 createTag(){
     const newTag =prompt('请你输入新的标签吧')||''
-    store.createTag(newTag)
+    this.$store.commit('createTag',newTag) 
 }
 }
 </script>

@@ -21,14 +21,16 @@ import Vue from "vue";
 import { Component } from 'vue-property-decorator'
 import TextInput from '../components/Money/TextInput.vue'
 import Button from '../components/Button.vue'
-import store from "@/store/index2";
 @Component({components:{TextInput,Button}})
 export default class Labels extends Vue {
-    tag:{tagName:string,tagId:string}={tagName:'',tagId:''};
+    tag:Tag={tagName:'',tagId:''}
+    get tagList(){
+      return this.$store.state.tagList
+    }
 created(){
+    this.$store.commit('fetchTagList')
     const urlId = this.$route.params.id
-    const tags =store.fetchTagList()
-    const tag = tags.filter(item=>item.tagId===urlId)[0]
+    const tag:Tag = this.tagList.filter((item:Tag)=>item.tagId===urlId)[0]
     if(tag){
       this.tag=tag
     }else{
@@ -36,10 +38,10 @@ created(){
     }
     };
     updateTag($event:string){
-      store.updateTag(this.tag.tagId,$event)
+      this.$store.commit('updateTag',[this.tag.tagId,$event])
     };
     removeTag(){
-    store.removeTag(this.tag.tagId)
+    this.$store.commit('removeTag',this.tag.tagId)
      this.$router.back()
     };
     getBack(){

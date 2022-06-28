@@ -19,16 +19,15 @@
   import Tags from '@/components/Money/Tags.vue';
 import Vue from 'vue';
 import { Component} from 'vue-property-decorator';
-import store from '@/store/index2';
 @Component({components:{Tags,NumberPad,Types,TextInput},
-computed:{
-  recordList(){
-    return this.$store.state.recordList
-  }
-}
 })
 export default class Money extends Vue {
-  tags=store.fetchTagList()
+  get recordList(){
+    return this.$store.state.recordList
+  }
+  get tags(){
+    return this.$store.state.tagList
+  }
   record:RecordItem={
   selectedTags:[],
   notes:'',
@@ -37,10 +36,11 @@ export default class Money extends Vue {
   date:new Date()
   };
   onCreateTag($event:string){
-    store.createTag($event)
+    this.$store.commit('createTag',$event)
   };
   created(){
         this.$store.commit('fetchRecordList')
+        this.$store.commit('fetchTagList')
   }
   onSaveRecord(){
     this.$store.commit('saveRecord',this.record)
