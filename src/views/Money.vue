@@ -29,13 +29,13 @@ export default class Money extends Vue {
     return this.$store.state.tagList
   }
   types=['支出','收入']
-  record:RecordItem={
+  get record(){return {
   selectedTags:[],
   notes:'',
   type:'支出',
   amount:0,
   date:''
-  };
+  }as RecordItem }
   onCreateTag($event:string){
     this.$store.commit('createTag',$event)
   };
@@ -45,6 +45,7 @@ export default class Money extends Vue {
   }
   onSaveRecord(){
     this.$store.commit('saveRecord',this.record)
+    alert('成功')
   }
 }
 </script>

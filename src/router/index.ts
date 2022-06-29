@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Statistics from '../views/Statistics.vue';
+import Account from '@/views/Account.vue';
 import Money from '@/views/Money.vue';
 import Labels from '@/views/Labels.vue';
 import EditLabel from '@/views/EditLabel.vue';
 import NotFound from '@/views/NotFound.vue';
+import Statistics from '../views/Statistics.vue';
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes: Array<RouteConfig> = [
     path: '/labels/editLabel/:id',
     name: 'EditLabel',
     component: EditLabel
+  },
+  {
+    path: '/account',
+    name: 'Account',
+    component: Account
   },
   {
     path: '/statistics',

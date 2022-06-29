@@ -2,13 +2,16 @@
 <template>
         <nav>
           <router-link to="/labels" class="item" active-class="selected">
-            labels<Iconfont :name="'labels'"  />
-            </router-link>|
+            标签<Iconfont :name="'labels'"  />
+            </router-link>
           <router-link to="/money" class="item" active-class="selected">            
-            money<Iconfont :name="'money'" />
-            </router-link> |
-          <router-link to="/statistics" class="item" active-class="selected">            
-            statistics<Iconfont :name="'statistics'" />
+            记账<Iconfont :name="'money'" />
+            </router-link>
+          <router-link to="/account" class="item" active-class="selected">            
+            账本<Iconfont :name="'account'" />
+            </router-link>
+            <router-link to="/statistics" class="item" active-class="selected">            
+            统计<Iconfont :name="'statistics'" />
             </router-link>
     </nav>
 </template>
