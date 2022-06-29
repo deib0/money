@@ -5,9 +5,9 @@ Vue.use(Vuex)
 
 const store= new Vuex.Store({
     state: {
-      recordList:[] as RecordItem[],
-      tagList:[] as Tag[]
-    },
+      recordList:[],
+      tagList:[]
+    } as RootState,
     mutations: {
       updateTag(state,[tagId,tagName]:string[]){
         let tagIds =state.tagList.map(item=>item.tagId);
@@ -21,6 +21,7 @@ const store= new Vuex.Store({
         state.recordList=JSON.parse(localStorage.getItem('recordList')||'[]')
     },
       saveRecord(state,record:RecordItem){
+        record.date=new Date().toISOString()
         let record2 = JSON.parse(JSON.stringify(record))as RecordItem
         state.recordList.push(record2)
         localStorage.setItem('recordList',JSON.stringify(state.recordList))

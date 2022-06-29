@@ -3,11 +3,16 @@ type RecordItem={
     notes:string
     type:string
     amount:number
-    date:Date
+    date:string
   }
   type Tag ={
     tagId:string,
     tagName:string
 }
+type RootState={
+  recordList:RecordItem[]
+  tagList:Tag[]
+}
+
 interface Window {
 }

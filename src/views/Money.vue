@@ -34,7 +34,7 @@ export default class Money extends Vue {
   notes:'',
   type:'支出',
   amount:0,
-  date:new Date()
+  date:''
   };
   onCreateTag($event:string){
     this.$store.commit('createTag',$event)
