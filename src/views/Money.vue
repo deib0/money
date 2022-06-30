@@ -5,6 +5,7 @@
     <Tags 
     :tags="tags" v-on:update:newTag="onCreateTag"
     v-on:update:selectedTag="record.selectedTags=$event"
+    :type="record.type"
     />
     <TextInput v-on:update:value="record.notes=$event" :value="record.notes"  
     inputTitle="备注" placeHolder="请输入备注" />

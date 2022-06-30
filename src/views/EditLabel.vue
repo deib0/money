@@ -11,11 +11,23 @@
     :value.sync="tagName"/>
     </div>
     <div class="icons">
-      <div class="selectIcon">选择图标</div>
+      <div class="head">
+        <div class="select-icon">
+                  选择图标
+        </div>
+        <div class="types">
+        <p :class="type==='支出'?'selected-type':''"
+        @click="type='支出'"
+        >支出</p>
+        <p :class="type==='收入'?'selected-type':''"
+        @click="type='收入'"
+        >收入</p>   
+        </div>
+      </div>
       <div class="icon-wrapper" 
-      v-for="u in iconBase" :key="u" >
-      <Iconfont  class="icon" @click="toggle(u)" 
-      :class="selectedIcon.indexOf(u)>=0?'selected':''" :name="u"/>
+      v-for="u in icons" :key="u.iconName" >
+      <Iconfont  class="icon" @click="toggle(u.iconName)" 
+      :class="selectedIcon.indexOf(u.iconName)>=0?'selected':''" :name="u.iconName"/>
       </div>
     </div>
     <div class="button-wrapper" >
@@ -35,15 +47,20 @@ import Button from '../components/Button.vue'
 export default class Labels extends Vue {
     tagId=''
     tagName=''
+    get icons(){
+      return this.iconBase.filter(item=>item.type===this.type)
+      }
+    type ='支出'
     get tagList(){
       return this.$store.state.tagList as Tag[]
     }
-    iconBase=['food','education','game','management','prize','salary','second','shopping','tie','traffic','gift']
+    iconBase=[{iconName:'food',type:'支出'},{iconName:'education',type:'支出'},{iconName:'game',type:'支出'},{iconName:'management',type:'支出'},{iconName:'prize',type:'收入'},{iconName:'salary',type:'收入'},{iconName:'second',type:'支出'},{iconName:'shopping',type:'支出'},{iconName:'tie',type:'收入'},{iconName:'traffic',type:'支出'},{iconName:'gift',type:'支出'}]
     selectedIcon='food'
     toggle(iconName:string){
       this.selectedIcon=iconName
     }
   created(){
+    
     this.$store.commit('fetchTagList')
     this.tagId = this.$route.params.id
     if(this.tagId!=='0'){
@@ -52,7 +69,7 @@ export default class Labels extends Vue {
     }
     };
   updateTag(){
-    this.$store.commit('updateTag',[this.tagId,this.tagName,this.selectedIcon,this.$router])
+    this.$store.commit('updateTag',[this.tagId,this.tagName,this.selectedIcon,this.type])
   };
     removeTag(){
     this.$store.commit('removeTag',this.tagId)
@@ -92,15 +109,33 @@ export default class Labels extends Vue {
     justify-content: start;
     flex-wrap: wrap;
     background: #ffffff;
-    .selectIcon {
+    .head {
       padding: 5px 16px;
       font-size: 16px;
       width: 100%;
-      p{
-        width: 4em;
-        float: right;
-        text-align: center;
-        border: 3px solid #a4d6c8;
+      display: flex;
+      flex-direction: row;
+      justify-content:space-between;
+      .select-icon{
+        width: 6em;
+      }
+      .types{
+        display: flex;
+      flex-direction: row;
+      justify-content:space-between;
+        width: 6em;
+        border-radius: 3px;
+        border: 1px solid #4aac93;
+        p {
+          width: 3em;
+          text-align: center;
+          background: #edf6f5;
+          font-weight: 700;
+          &.selected-type{
+            background: #4aac93;
+            color: #ffffff;
+          }
+        }
       }
     }
     .icon-wrapper{
@@ -115,7 +150,7 @@ export default class Labels extends Vue {
       height: 40px;
       border-radius: 50%;
       &.selected{
-              background: #a4d6c8;
+      background: #a4d6c8;
 
       }
     }

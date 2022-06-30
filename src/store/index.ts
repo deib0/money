@@ -10,17 +10,16 @@ const store= new Vuex.Store({
       tagList:[]
     } as RootState,
     mutations: {
-      updateTag(state,[tagId,tagName,iconName]){
+      updateTag(state,[tagId,tagName,iconName,type]){
         let tagNames= state.tagList.filter(item=>item.tagName===tagName)
         if(tagId==='0'){
           if(tagNames.length>0){
             alert('换一个名字吧')
           }else{
             tagId = createId().toString()
-            const newTag = {tagId:tagId,tagName:tagName,iconName:iconName} 
+            const newTag = {tagId:tagId,tagName:tagName,iconName:iconName,type:type} 
             state.tagList.push(newTag)
             store.commit('saveTagList')
-            alert('成功')
             router.back()
           }
       }else{
@@ -32,7 +31,6 @@ const store= new Vuex.Store({
           state.tagList[index].tagName=tagName
           state.tagList[index].iconName=iconName
           store.commit('saveTagList')
-          alert('成功')
           router.back()
         }
       }
@@ -57,7 +55,6 @@ const store= new Vuex.Store({
       let index = tagIds.indexOf(tagId)
       state.tagList.splice(index,1)
       store.commit('saveTagList') 
-      alert('删除成功')
     },
   },
   actions: {

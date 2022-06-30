@@ -2,7 +2,7 @@
   <div class="tags">
     <ul class="current">
       <li
-        v-for="u in tags"
+        v-for="u in tagsOfType"
         :key="u.tagName"
         @click="toggle(u.tagName)"
         :class="selectedTags.indexOf(u.tagName) >= 0 ? 'selected' : ''"
@@ -30,7 +30,11 @@ import { Component, Prop } from "vue-property-decorator";
 @Component
 export default class Tags extends Vue {
   @Prop() tags: Tag[] | undefined;
+  @Prop() type: string | undefined;;
   selectedTags: string[] = [];
+  get tagsOfType(){
+    return (this.tags!).filter(item=>item.type===this.type)
+  }
   createTag() {
     const tagName = prompt("请输入标签名");
     if (tagName === "") {
