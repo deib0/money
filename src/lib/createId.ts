@@ -1,4 +1,4 @@
-let id:number =parseInt(localStorage.getItem('id')||'0')||0
+let id:number =parseInt(localStorage.getItem('id')||'1')
 function createId(){
     id++
     localStorage.setItem('id',id.toString())

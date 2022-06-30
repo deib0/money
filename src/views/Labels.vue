@@ -1,5 +1,6 @@
 <template>
 <Layout> 
+  <Tabs class="money" :types="types" :selectedType.sync="selectedType" />
    <div class="tags">
       <router-link class="tag" v-for="u in tagList" :key="u.tagId" 
       :to="`/labels/editLabel/${u.tagId}`">
@@ -17,11 +18,14 @@
 import Vue from "vue";
 import { Component } from 'vue-property-decorator'
 import Button from '../components/Button.vue'
-@Component({components:{Button}})
+import Tabs from '../components/Tabs.vue';
+@Component({components:{Button,Tabs}})
 export default class Labels extends Vue {
 get tagList(){
   return this.$store.state.tagList
 }
+types=['支出','收入']
+selectedType='支出'
 createTag(){
     const newTag =prompt('请你输入新的标签吧')||''
     this.$store.commit('createTag',newTag) 

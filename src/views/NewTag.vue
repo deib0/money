@@ -10,14 +10,6 @@
     inputTitle="标签名" placeHolder="请输入标签名" 
     :value="tag.tagName" v-on:update:value="updateTag"  />
     </div>
-    <div class="icons">
-      <p>选择图标</p>
-      <div class="icon-wrapper" 
-      v-for="u in iconNames" :key="u" >
-      <Iconfont  class="icon"  
-      :class="selectedIcon.indexOf(u)>=0?'selected':''" :name="u"/>
-      </div>
-    </div>
     <div class="button-wrapper">
       <Button @click="removeTag">删除标签</Button>
     </div>
@@ -35,8 +27,6 @@ export default class Labels extends Vue {
     get tagList(){
       return this.$store.state.tagList
     }
-    iconNames=['food','education','game','management','prize','salary','second','shopping','tie','traffic','health ','gift']
-    selectedIcon='food'
 created(){
     this.$store.commit('fetchTagList')
     const urlId = this.$route.params.id
@@ -80,37 +70,6 @@ created(){
   .input-wrapper{
     margin-top: 8px;
     background-color: #ffffff;
-  }
-  .icons {
-    width: 100%;
-    margin-top: 10px;
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
-    background: #ffffff;
-    p {
-      padding: 5px 16px;
-      font-size: 16px;
-      width: 100%;
-    }
-    .icon-wrapper{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      width: 20%;
-      height: 80px;
-    .icon {
-      width: 60%;
-      height: 40px;
-      border-radius: 50%;
-      &.selected{
-              background: #a4d6c8;
-
-      }
-    }
-    }
-
   }
   .button-wrapper{
     text-align: center;
