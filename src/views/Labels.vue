@@ -1,6 +1,5 @@
 <template>
 <Layout> 
-  <Tabs class="money" :types="types" :selectedType.sync="selectedType" />
    <div class="tags">
       <router-link class="tag" v-for="u in tagList" :key="u.tagId" 
       :to="`/labels/editLabel/${u.tagId}`">
@@ -8,9 +7,9 @@
          <Iconfont name="right"/>
       </router-link>
    </div>
-       <div class="createTag-wrapper">
-        <Button @click="createTag">新增标签</Button>
-    </div>
+   <router-link :to="`/labels/editLabel/0`" class="button-wrapper">
+        <Button class="button">新增标签</Button>
+    </router-link>
 </Layout>
 </template>
 
@@ -24,11 +23,8 @@ export default class Labels extends Vue {
 get tagList(){
   return this.$store.state.tagList
 }
-types=['支出','收入']
-selectedType='支出'
-createTag(){
-    const newTag =prompt('请你输入新的标签吧')||''
-    this.$store.commit('createTag',newTag) 
+created(){
+  this.$store.commit('fetchTagList')
 }
 }
 </script>
@@ -51,6 +47,12 @@ createTag(){
         margin-right: 16px;
       }
     }
+  }
+  .button-wrapper{
+    display: flex;
+    font-display: row;
+    justify-content: center;
+    padding: 100px;
   }
 
 </style>

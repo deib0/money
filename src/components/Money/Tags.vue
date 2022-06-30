@@ -8,17 +8,17 @@
         :class="selectedTags.indexOf(u.tagName) >= 0 ? 'selected' : ''"
       >
         <div class="icon">
-          <Iconfont name="money" class="iconfont" />
+          <Iconfont :name="u.iconName" class="iconfont" />
         </div>
         <p class="tagname">{{ u.tagName }}</p>
       </li>
       <li>
-        <button @click="createTag" class="new">
+        <router-link @click="createTag" class="new" :to="`/labels/editLabel/0`">
           <div class="icon">
             <Iconfont name="add" class="iconfont" />
           </div>
           <p class="tagname">新增标签</p>
-        </button>
+        </router-link>
       </li>
     </ul>
   </div>

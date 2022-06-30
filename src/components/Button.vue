@@ -1,9 +1,7 @@
 	<template>
-    <div class="createTag-wrapper">
       <Button class="createTag" @click="$emit('click')">
         <slot></slot>
       </Button>
-    </div>
 	</template>
 	<script lang="ts">
 	import Vue from "vue";
@@ -19,10 +17,5 @@
     border: none;
     height: 40px;
     padding: 0 16px;
-    &-wrapper {
-      text-align: center;
-      padding: 16px;
-      margin-top: 44-16px;
-    }
   }
 	</style>

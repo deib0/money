@@ -8,18 +8,20 @@
     <div class="input-wrapper">
       <TextInput 
     inputTitle="标签名" placeHolder="请输入标签名" 
-    :value="tag.tagName" v-on:update:value="updateTag"  />
+    :value.sync="tagName"/>
     </div>
     <div class="icons">
-      <p>选择图标</p>
+      <div class="selectIcon">选择图标</div>
       <div class="icon-wrapper" 
-      v-for="u in iconNames" :key="u" >
-      <Iconfont  class="icon"  
+      v-for="u in iconBase" :key="u" >
+      <Iconfont  class="icon" @click="toggle(u)" 
       :class="selectedIcon.indexOf(u)>=0?'selected':''" :name="u"/>
       </div>
     </div>
-    <div class="button-wrapper">
-      <Button @click="removeTag">删除标签</Button>
+    <div class="button-wrapper" >
+            <Button @click="updateTag" class="button">完成</Button>
+            <Button v-if="tagId !=='0'"
+            @click="removeTag" class="removeTag button">删除</Button>
     </div>
 </Layout>
 </template>
@@ -31,28 +33,30 @@ import TextInput from '../components/Money/TextInput.vue'
 import Button from '../components/Button.vue'
 @Component({components:{TextInput,Button}})
 export default class Labels extends Vue {
-    tag:Tag={tagName:'',tagId:''}
+    tagId=''
+    tagName=''
     get tagList(){
-      return this.$store.state.tagList
+      return this.$store.state.tagList as Tag[]
     }
-    iconNames=['food','education','game','management','prize','salary','second','shopping','tie','traffic','health ','gift']
+    iconBase=['food','education','game','management','prize','salary','second','shopping','tie','traffic','gift']
     selectedIcon='food'
-created(){
+    toggle(iconName:string){
+      this.selectedIcon=iconName
+    }
+  created(){
     this.$store.commit('fetchTagList')
-    const urlId = this.$route.params.id
-    const tag:Tag = this.tagList.filter((item:Tag)=>item.tagId===urlId)[0]
-    if(tag){
-      this.tag=tag
-    }else{
-        this.$router.replace('/404')
+    this.tagId = this.$route.params.id
+    if(this.tagId!=='0'){
+    let tagName =this.tagList.filter(item=>item.tagId===this.tagId)[0].tagName
+    this.tagName=tagName
     }
     };
-    updateTag($event:string){
-      this.$store.commit('updateTag',[this.tag.tagId,$event])
-    };
+  updateTag(){
+    this.$store.commit('updateTag',[this.tagId,this.tagName,this.selectedIcon,this.$router])
+  };
     removeTag(){
-    this.$store.commit('removeTag',this.tag.tagId)
-     this.$router.back()
+    this.$store.commit('removeTag',this.tagId)
+    this.$router.back()
     };
     getBack(){
       this.$router.back()
@@ -88,10 +92,16 @@ created(){
     justify-content: start;
     flex-wrap: wrap;
     background: #ffffff;
-    p {
+    .selectIcon {
       padding: 5px 16px;
       font-size: 16px;
       width: 100%;
+      p{
+        width: 4em;
+        float: right;
+        text-align: center;
+        border: 3px solid #a4d6c8;
+      }
     }
     .icon-wrapper{
       display: flex;
@@ -113,8 +123,15 @@ created(){
 
   }
   .button-wrapper{
-    text-align: center;
-    padding: 16px;
-    margin-top: 44-16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    .button {
+      margin: 50px 20px;
+    }
+
   }
+  ::v-deep .removeTag {
+      background: #f55c58;
+  } 
 </style>

@@ -7,7 +7,8 @@ type RecordItem={
   }
   type Tag ={
     tagId:string,
-    tagName:string
+    tagName:string,
+    iconName:string
 }
 type RootState={
   recordList:RecordItem[]

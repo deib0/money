@@ -1,3 +1,4 @@
+import router from '@/router';
 import Vue from 'vue'
 import Vuex from 'vuex'
 import createId from '../lib/createId';
@@ -9,13 +10,32 @@ const store= new Vuex.Store({
       tagList:[]
     } as RootState,
     mutations: {
-      updateTag(state,[tagId,tagName]:string[]){
-        let tagIds =state.tagList.map(item=>item.tagId);
-        let index = tagIds.indexOf(tagId);
-        if(index>=0){
-            state.tagList[index].tagName=tagName
+      updateTag(state,[tagId,tagName,iconName]){
+        let tagNames= state.tagList.filter(item=>item.tagName===tagName)
+        if(tagId==='0'){
+          if(tagNames.length>0){
+            alert('换一个名字吧')
+          }else{
+            tagId = createId().toString()
+            const newTag = {tagId:tagId,tagName:tagName,iconName:iconName} 
+            state.tagList.push(newTag)
+            store.commit('saveTagList')
+            alert('成功')
+            router.back()
+          }
+      }else{
+        if(tagNames.length>1){
+          alert('换一个名字吧')
+        }else{
+          let tagIds =state.tagList.map(item=>item.tagId);
+          let index = tagIds.indexOf(tagId);
+          state.tagList[index].tagName=tagName
+          state.tagList[index].iconName=iconName
+          store.commit('saveTagList')
+          alert('成功')
+          router.back()
         }
-        store.commit('saveTagList')
+      }
       },
       fetchRecordList(state){
         state.recordList=JSON.parse(localStorage.getItem('recordList')||'[]')
@@ -28,20 +48,6 @@ const store= new Vuex.Store({
     },
     fetchTagList(state){
       state.tagList=JSON.parse(localStorage.getItem('tagList')||'[]')  
-    },
-    createTag(state,newTag){
-      if(newTag){
-          let names =state.tagList.map(item=>item.tagName)
-              if(names.indexOf(newTag)>=0){
-                  alert('换一个名字把')
-              }else{
-                  let id= createId().toString()
-                  let obj ={tagId:id,tagName:newTag}
-                  state.tagList.push(obj)
-                  store.commit('saveTagList')
-                  alert('创建成功')
-              }
-          }
     },
     saveTagList(state){
       localStorage.setItem('tagList',JSON.stringify(state.tagList))
