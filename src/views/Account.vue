@@ -1,8 +1,8 @@
 <template>
     <Layout>
         <Tabs class="money"
-        :types="moneyTypes" :selectedType.sync="moneySelectedType" />        
-        <ol>
+        :types="moneyTypes" :selectedType.sync="moneySelectedType" />
+        <ol v-if="length!==0">
             <li v-for="(u,index) in result" :key="index"> 
             <h3 class="title">{{showDay(u.title)}}<span>￥{{showTotal(u.items)}}</span></h3> 
             <ol>
@@ -15,6 +15,11 @@
             </ol>
             </li>
         </ol>
+        <div class="instead" v-else>
+            <Iconfont name="nothing" class="icon"></Iconfont>
+            <p>完美的一天</p>
+            <p>记录您的第一笔{{moneySelectedType}}吧~</p> 
+            </div>
     </Layout>
 </template>
 
@@ -28,10 +33,13 @@ import dayjs from 'dayjs';
 export default class Account extends Vue {
     moneyTypes=['支出','收入']
     moneySelectedType='支出'
-hashTable={}
-get recordList(){return (this.$store.state as RootState).recordList}
-get result(){
+    get recordList(){return (this.$store.state as RootState).recordList}
+    get length(){
+        return this.recordList.filter((item)=>item.type===this.moneySelectedType).length
+    }
+   get result(){
         const {recordList}=this
+        if(recordList.length===0){return undefined}
         const recordList2 = recordList.filter((item)=>item.type===this.moneySelectedType)
         .sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf());
     type HashTable ={title:string,total?:number,items:RecordItem[]}[]
@@ -46,7 +54,6 @@ get result(){
         }
     }
     return hashTable
-
 }
 showTags(tags:string[]){
     let string ='无'
@@ -116,6 +123,21 @@ created(){
     margin-right: auto;
     margin-left: 16px;
     color: #999;
+  }
+  .instead {
+    width: 50%;
+    height: 300px;
+    margin: 100px auto;
+    .icon {
+        width: 100%;
+        margin-bottom: 30px;
+        font-size: 100px;
+        color: #49ac93;
+    }
+    p {
+        text-align: center;
+        font-size: 20px;
+    }
   }
 
 </style>
