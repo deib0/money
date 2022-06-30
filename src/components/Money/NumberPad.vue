@@ -13,7 +13,7 @@
       <button @click="inputContent">7</button>
       <button @click="inputContent">8</button>
       <button @click="inputContent">9</button>
-      <button class="ok" @click="ok">OK</button>
+      <button class="ok" @click="ok">完成</button>
       <button class="zero" @click="inputContent">0</button>
       <button @click="inputContent">.</button>
     </div>
@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component,Prop, Watch} from "vue-property-decorator";
+import { Component,Prop} from "vue-property-decorator";
 @Component
   export default class NumberPad extends Vue {
     @Prop() readonly value!:number
@@ -65,6 +65,7 @@ import { Component,Prop, Watch} from "vue-property-decorator";
     .output {
       @extend %clearFix;
       @extend %innerShadow;
+      color: #f55c58;
       min-height: 72px;
       font-size: 36px;
       font-family: Consolas, monospace;
@@ -75,38 +76,19 @@ import { Component,Prop, Watch} from "vue-property-decorator";
       @extend %clearFix;
       > button {
         width: 25%;
-        height: 64px;
+        height: 50px;
         float: left;
+        font-weight:800;
+        font-size: 18px;
         background: transparent;
-        border: none;
+        border: 1px #e2e2e2 solid;
         &.ok {
-          height: 64*2px;
+          height: 50*2px;
           float: right;
+          background: #49ad95;
         }
         &.zero {
           width: 25*2%;
-        }
-        $bg: #f2f2f2;
-        &:nth-child(1) {
-          background: $bg;
-        }
-        &:nth-child(2), &:nth-child(5) {
-          background: darken($bg, 4%);
-        }
-        &:nth-child(3), &:nth-child(6), &:nth-child(9) {
-          background: darken($bg, 4*2%);
-        }
-        &:nth-child(4), &:nth-child(7), &:nth-child(10) {
-          background: darken($bg, 4*3%);
-        }
-        &:nth-child(8), &:nth-child(11), &:nth-child(13) {
-          background: darken($bg, 4*4%);
-        }
-        &:nth-child(14) {
-          background: darken($bg, 4*5%);
-        }
-        &:nth-child(12) {
-          background: darken($bg, 4*6%);
         }
       }
     }

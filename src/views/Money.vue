@@ -1,14 +1,15 @@
 <template>
 <Layout class-prefix="layout">
-    <NumberPad :value.sync="record.amount" v-on:saveRecord="onSaveRecord" />
     <Tabs class="money"
     :types="types" :selectedType.sync="record.type" />
-    <TextInput v-on:update:value="record.notes=$event" :value="record.notes"  
-    inputTitle="备注" placeHolder="请输入备注" />
     <Tags 
     :tags="tags" v-on:update:newTag="onCreateTag"
     v-on:update:selectedTag="record.selectedTags=$event"
     />
+    <TextInput v-on:update:value="record.notes=$event" :value="record.notes"  
+    inputTitle="备注" placeHolder="请输入备注" />
+    <NumberPad :value.sync="record.amount" v-on:saveRecord="onSaveRecord" />
+
 </Layout>
 </template>
 
@@ -29,13 +30,13 @@ export default class Money extends Vue {
     return this.$store.state.tagList
   }
   types=['支出','收入']
-  get record(){return {
+  record:RecordItem = {
   selectedTags:[],
   notes:'',
   type:'支出',
   amount:0,
   date:''
-  }as RecordItem }
+  }
   onCreateTag($event:string){
     this.$store.commit('createTag',$event)
   };
@@ -53,6 +54,7 @@ export default class Money extends Vue {
 <style lang="scss">
   .layout-content {
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    justify-content: start;
   }
 </style>

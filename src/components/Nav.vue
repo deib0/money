@@ -2,16 +2,16 @@
 <template>
         <nav>
           <router-link to="/labels" class="item" active-class="selected">
-            标签<Iconfont :name="'labels'"  />
+            <Iconfont :name="'labels'"  />
             </router-link>
           <router-link to="/money" class="item" active-class="selected">            
-            记账<Iconfont :name="'money'" />
+            <Iconfont :name="'money'" />
             </router-link>
           <router-link to="/account" class="item" active-class="selected">            
-            账本<Iconfont :name="'account'" />
+            <Iconfont :name="'account'" />
             </router-link>
             <router-link to="/statistics" class="item" active-class="selected">            
-            统计<Iconfont :name="'statistics'" />
+            <Iconfont :name="'statistics'" />
             </router-link>
     </nav>
 </template>
@@ -28,20 +28,23 @@ export default {
     flex-direction: row;
     font-size: 12px;
     > .item {
-      color:black;
-      padding: 2px 0;
-      width: 33.33333%;
+      color:#959595;
+      padding: 10px 0;
+      width: 25%;
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
+      &:active{
+        background: #c9c9c9;
+      }
       .icon {
-        width: 32px;
+        width: 38px;
         height: 32px;
       }
     }
     > .item.selected{
-      color: red;
+      color: #4ca98f;
     }
   }
 </style>

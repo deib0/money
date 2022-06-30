@@ -1,14 +1,22 @@
 <template>
   <div class="tags">
-    <div class="new">
-      <button @click="createTag">新增标签</button>
-    </div>
     <ul class="current"> 
       <li v-for="u in tags" :key="u.tagName" 
       @click="toggle(u.tagName)" 
       :class="selectedTags.indexOf(u.tagName)>=0?'selected':''" >
-      {{u.tagName}}</li>
+      <div class="icon">
+        <Iconfont name="money"  class="iconfont"/>
+      </div>
+        <span class="tagname">{{u.tagName}}</span></li>
     </ul>
+      <div class="new">
+        <button @click="createTag">
+      <div class="icon">
+        <Iconfont name="money"  class="iconfont"/>
+      </div>
+      <span class="tagname">新增标签</span>
+      </button>
+    </div>
   </div>
 
 </template>
@@ -39,37 +47,65 @@ export default class Tags extends Vue {
 
 <style lang="scss" scoped>
   .tags {
-    font-size: 14px;
+    border: 1px solid #000;
+    display: flex;
     padding: 16px;
     flex-grow: 1;
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: row;
+    flex-wrap: wrap;
     > .current {
       display: flex;
       flex-wrap: wrap;
       > li {
-        background: #d9d9d9;
-        $h: 24px;
-        height: $h;
-        line-height: $h;
-        border-radius: calc($h/2);
-        padding: 0 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 70px;
+        width: 60px;
+        text-align: center;
         margin-right: 12px;
         margin-top: 4px;
-        &.selected {
-          background: #000;
-          color: white;
+        &.selected .icon{
+          background: #a4d6c8;
+        }
+        &.selected .tagname{
+          color: #000000;
         }
       }
     }
+    .icon {
+          .iconfont {
+            width: 30px;
+            height: 30px;
+          }
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: #f4f4f4;
+        }
+        .tagname {
+      line-height: 30px;
+      font-size: 14px;
+      font-weight: 700;
+      overflow: hidden;
+      color: #999999;
+    }
     > .new {
-      padding-top: 16px;
       button {
-        background: transparent;
+        background: #f4f4f4;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        margin-top: 4px;
+        height: 70px;
+        width: 60px;
         border: none;
-        color: #999;
-        border-bottom: 1px solid;
-        padding: 0 4px;
       }
     }
   }
