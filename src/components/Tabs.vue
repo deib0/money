@@ -31,7 +31,7 @@
     font-size: 20px;
     > li {
       width: 30%;
-      height: 64px;
+      height: 48px;
       display: flex;
       justify-content: center;
       align-items: center;

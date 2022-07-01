@@ -55,6 +55,7 @@ import { Component,Prop} from "vue-property-decorator";
     ok(){
       this.$emit('update:value',parseInt(this.output))
       this.$emit('saveRecord')
+      this.clear()
     }
   };
 </script>
