@@ -7,7 +7,22 @@ Vue.use(Vuex)
 const store= new Vuex.Store({
     state: {
       recordList:[],
-      tagList:[]
+      tagList:[],
+      tagListDefault:[
+        {tagId:'1',tagName:'游戏',iconName:'game',type:'支出'},
+        {tagId:'2',tagName:'美食',iconName:'food',type:'支出'},
+        {tagId:'3',tagName:'教育',iconName:'education',type:'支出'},
+        {tagId:'4',tagName:'购物',iconName:'shopping',type:'支出'},
+        {tagId:'5',tagName:'出行',iconName:'traffic',type:'支出'},
+        {tagId:'6',tagName:'送礼',iconName:'gift',type:'支出'},
+        {tagId:'7',tagName:'啤酒',iconName:'beer',type:'支出'},
+        {tagId:'8',tagName:'借钱',iconName:'borrow',type:'收入'},
+        {tagId:'9',tagName:'奖金',iconName:'prize',type:'收入'},
+        {tagId:'10',tagName:'礼金',iconName:'friend',type:'收入'},
+        {tagId:'11',tagName:'出二手',iconName:'second',type:'收入'},
+        {tagId:'12',tagName:'工资',iconName:'salary',type:'收入'},
+        
+      ]
     } as RootState,
     mutations: {
       updateTag(state,[tagId,tagName,iconName,type]){
@@ -45,7 +60,11 @@ const store= new Vuex.Store({
         localStorage.setItem('recordList',JSON.stringify(state.recordList))
     },
     fetchTagList(state){
-      state.tagList=JSON.parse(localStorage.getItem('tagList')||'[]')  
+      if(localStorage.getItem('tagList')){
+        state.tagList=JSON.parse(localStorage.getItem('tagList')!)
+      }else{
+        state.tagList=state.tagListDefault  
+      }
     },
     saveTagList(state){
       localStorage.setItem('tagList',JSON.stringify(state.tagList))

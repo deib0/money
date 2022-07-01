@@ -54,7 +54,8 @@ export default class Labels extends Vue {
     get tagList(){
       return this.$store.state.tagList as Tag[]
     }
-    iconBase=[{iconName:'food',type:'支出'},{iconName:'education',type:'支出'},{iconName:'game',type:'支出'},{iconName:'management',type:'支出'},{iconName:'prize',type:'收入'},{iconName:'salary',type:'收入'},{iconName:'second',type:'支出'},{iconName:'shopping',type:'支出'},{iconName:'tie',type:'收入'},{iconName:'traffic',type:'支出'},{iconName:'gift',type:'支出'}]
+    iconBase=[{iconName:'food',type:'支出'},{iconName:'education',type:'支出'},{iconName:'game',type:'支出'},
+    {iconName:'management',type:'收入'},{iconName:'prize',type:'收入'},{iconName:'salary',type:'收入'},{iconName:'second',type:'收入'},{iconName:'shopping',type:'支出'},{iconName:'tie',type:'收入'},{iconName:'traffic',type:'支出'},{iconName:'gift',type:'支出'},{iconName:'borrow',type:'收入'},{iconName:'part-time',type:'收入'},{iconName:'health',type:'支出'},{iconName:'dog',type:'支出'},{iconName:'stock',type:'收入'},{iconName:'barbecue',type:'支出'},{iconName:'gather',type:'收入'},{iconName:'hotel',type:'支出'},{iconName:'movie',type:'支出'},{iconName:'baseball',type:'支出'},{iconName:'chat',type:'支出'},{iconName:'friend',type:'支出'},{iconName:'beer',type:'支出'}]
     selectedIcon='food'
     toggle(iconName:string){
       this.selectedIcon=iconName
