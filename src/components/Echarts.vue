@@ -21,7 +21,7 @@ export default {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 90vw;
+        width: 90%;
         background: #ffffff;
         border-radius: 10px;
         box-shadow: 1px 1px 1px rgba($color: #000000, $alpha: .3);
@@ -31,6 +31,7 @@ export default {
         }
             .container{
                 width: 100%;
+                max-width: 450px;
                 height: 200px;
     }
     }

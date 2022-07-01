@@ -1,5 +1,8 @@
 const path =require('path')
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production'
+  ? '/money-website/'
+  : '/',
   lintOnSave: false,
   //  以下为svg的配置
   chainWebpack: config =>{
