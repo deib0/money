@@ -15,6 +15,7 @@ type RootState={
   recordList:RecordItem[]
   tagList:Tag[]
   tagListDefault:Tag[]
+  iconBase:Icon[]
 }
 type Icon={
   iconName:string
