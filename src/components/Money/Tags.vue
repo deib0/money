@@ -26,12 +26,17 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { Component, Prop } from "vue-property-decorator";
+import { Component, Prop ,Watch} from "vue-property-decorator";
 @Component
 export default class Tags extends Vue {
   @Prop() tags: Tag[] | undefined;
   @Prop() type: string | undefined;;
   selectedTags: string[] = [];
+  @Watch("type")
+    watchType() {
+      this.selectedTags=[]
+      this.$emit("update:selectedTag", this.selectedTags);
+    }
   get tagsOfType(){
     return (this.tags!).filter(item=>item.type===this.type)
   }
