@@ -15,8 +15,8 @@
                 </div>
         </div>
         <div class="Echarts-wrapper">
-        <Echarts class="Echarts" :option="option1" :type="'支出'" />
-        <Echarts class="Echarts" :option="option2" :type="'收入'"/>
+        <Echarts class="Echarts" :option="getOption('支出')" :type="'支出'" />
+        <Echarts class="Echarts" :option="getOption('收入')" :type="'收入'"/>
         </div>
     </Layout>
 	</template>
@@ -29,7 +29,7 @@
     @Component({components:{Echarts}})
 	export default class Statistics extends Vue {
       get recordList(){        
-      return store.state.recordList as RecordItem[]
+        return store.state.recordList as RecordItem[]
       }
       get inAmount(){
         let amount =0.00
@@ -46,8 +46,8 @@
       get allAmount(){
         return this.inAmount-this.outAmount
       }
-     get data1(){
-            let recordList = this.recordList.filter(item=>item.type==='支出')
+      getOption(type:string){
+        let recordList = this.recordList.filter(item=>item.type===type)
             let data:Data=[]
             recordList.map(
                 (item)=>{
@@ -61,47 +61,12 @@
                         data.push({name:name,value:item.amount})
                     }
                 }
-            ) 
-            return data
-    }
-            get data2(){
-            let recordList = this.recordList.filter(item=>item.type==='收入')
-            let data:Data=[]
-            recordList.map(
-                (item)=>{
-                    let names:string[] =[]
-                    data.map(item2=>names.push(item2.name))
-                    let name =item.selectedTags.join(',')
-                    let index = names.indexOf(name)
-                    if(index>0){
-                        data[index].value+=item.amount
-                    }else{
-                        data.push({name:name,value:item.amount})
-                    }
-                }
-            ) 
-            return data
-    }
-    created(){
-        store.commit('fetchRecordList')      
-    }
-       get option1(){return {
-        series: [
-            {
-            type: 'pie',
-            data:this.data1
-            }
-        ]
-        }} 
-       get option2(){return {
-        series: [
-            {
-            type: 'pie',
-            data:this.data2
-            }
-        ]
+            )
+            return {series: [{type: 'pie',data:data}] }
         }
-       } 
+        created(){
+            store.commit('fetchRecordList')      
+        }
     }
 	</script>
 	<style lang="scss" scoped>
